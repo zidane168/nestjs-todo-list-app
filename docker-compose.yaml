@@ -1,0 +1,14 @@
+version: '3'
+services:
+  postgres-service:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - 55432:5432/tcp
+    environment:
+      POSTGRES_DB: pg_db
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: 123456
+    volumes:
+      - /var/lib/postgres
+      - ./dbscripts/postgres:/docker-entrypoint-initdb.d

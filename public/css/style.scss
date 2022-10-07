@@ -1,0 +1,224 @@
+.notification {
+    width: 100%; 
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.is-danger {
+    background-color: rgb(241, 52, 52);
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.is-success {
+    background-color: rgb(62, 172, 15);
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.is-info {
+    background-color: rgb(69, 165, 238);
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+:root {
+   --main-color: rgb(159, 27, 148);
+   --second-color: rgb(229, 101, 219);
+   --post-avatar-height: 50px;
+   --height-footer: 100px;
+}
+
+#main-title {
+    background-color: var(--main-color);
+    color: yellow;
+    padding: 15px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    justify-content: center;
+    display: flex;
+    border-radius: 5px;
+}
+
+#page-404 {
+    margin: 0 auto;
+    color: red;
+}
+
+.post-caption {
+    color: yellow;
+    font-size: 14px; 
+    padding: 10px;
+    background-color: var(--main-color);
+    box-shadow: 3px 3px var(--second-color);
+    width: 200px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.post-image {
+    border: 1px solid white;
+    width: 100%;
+    display: block; 
+    margin: 0 auto;
+}
+
+.post-box {
+    width: 80%;
+    border: 10px solid white;
+    margin-bottom: 20px;
+    background-color: white; 
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.post-avatar {
+    width: var(--post-avatar-height);
+    margin-top: -20px;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.justify-content-space-between {
+    justify-content: space-between;
+}
+
+.post-username {
+    line-height:  var(--post-avatar-height);
+    height:  var(--post-avatar-height);
+}
+
+.avatar { 
+    background-color: white;
+    width: 200px;
+    height: 200px;
+    display: block;
+    border-radius: 200px;
+}
+
+@for $i from 5 through 30 {
+    .mb-#{$i} {
+        margin-bottom: #{$i}px;
+    }
+    .mt-#{$i} {
+        margin-top: #{$i}px;
+    }
+    .ml-#{$i} {
+        margin-left: #{$i}px;
+    }
+    .mr-#{$i} {
+        margin-right: #{$i}px;
+    }
+}
+
+.bio {
+    margin-top: 10px;
+    border: 1px solid var(--main-color);
+    box-shadow: 3px 3px var(--second-color);
+    min-height: 100px;
+  
+    padding: 10px;
+    border-radius: 5px; 
+    font-weight: bold;
+}
+
+.distance {
+    display: block;
+    min-width: 100px;
+}
+
+.mt-10 {
+    margin-top: 10px
+}
+
+.border {
+    border: 1px solid var(--main-color);
+    padding: 10px;
+    box-shadow: 3px 3px var(--main-color);
+}
+
+.control {
+    min-width: 500px;
+}
+
+.mr-10 {
+    margin-right: 10px;
+}
+
+.blue {
+    color: blue;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.grey {
+    color: grey;
+}
+
+.footer-post {
+    h6 {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+// body { 
+//     min-height: 100%;
+// }
+
+.con {
+    position:relative;
+    min-height:100%;
+}
+
+#content {
+    padding-bottom: var(--height-footer);
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    height: var(--height-footer);
+}
+
+.a-user {
+    &:hover {
+        list-style-type: none;
+    }
+}
+
+.post-point {
+    position: relative;
+    &:hover .post-setting {
+        display: block;
+    }
+
+}
+
+.post-setting {
+    position: absolute;
+    z-index: 1;
+}
+
+.hidden {
+    display: none;
+}

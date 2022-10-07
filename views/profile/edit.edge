@@ -1,0 +1,36 @@
+@layout('layouts/app')
+
+@section('content')
+    @set('title', 'Edit Profile')
+   
+    <h3 style="display: flex; justify-content: center; font-weight: bold; color:brown;">
+        Edit Profile
+    </h3>
+
+    @include('partials._notification') 
+
+    <div style="display: flex; justify-content: center;">
+        <form  class="border" method="POST" enctype="multipart/form-data" action='/profile/update'>
+            <div>
+                <label class="distance blue bold"> Upload your profile photo </label>
+                <input type="file" name="avatar"> 
+            </div>
+
+            <div>
+                <label class="distance blue bold mt-10"> Bio </label>
+                <textarea rows="10" class="control" 
+                    placeholder="input your bio here"
+                    name="bio">
+                </textarea>
+            </div>
+
+            <div style="display: flex; justify-content: center;" class="mt-10">
+                <button class="mr-10 btn btn-primary" type="submit"> Update </button>
+                <button type="submit " class="btn btn-secondary"> Cancel </button>
+            </div>
+            <div class="mt-20">
+                <a href="https://learn-tech-tips.blogspot.com"> learn-tech-tips.blogspot.com </a>
+            </div>
+        </form>
+    </div>
+@endsection

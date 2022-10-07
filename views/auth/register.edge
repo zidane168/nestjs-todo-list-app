@@ -1,0 +1,59 @@
+@layout('layouts/app')
+
+@section('content')
+    @set('title', 'Register')
+
+    {{--  https://www.youtube.com/watch?v=VNwhqiu_oRk  --}}
+   
+
+    <h3 style="display: flex; justify-content: center; font-weight: bold; color:brown;">
+        REGISTER 
+    </h3>
+
+    <div style="display: flex; justify-content: center;">
+    
+        <!-- https://www.youtube.com/watch?v=AXAJGHQBNkg -->
+
+        {{--  https://www.youtube.com/watch?v=VNwhqiu_oRk 19:22   --}}
+        <form class="border" method="POST" action='/register' >
+
+            <div>
+                <label for="username" class="distance blue bold"> Username </label>
+                <input type="text" class="control" name="username" required >
+                @if (flashMessages.has('errors.username')) 
+                    <small> {{ flashMessages.get('errors.username') }} </small>
+                @endif
+            </div>
+            <div>
+                <label for="email"  class="distance blue bold mt-10"> Email </label>
+                <input type="text" class="control" name="email">
+                @if (flashMessages.has('errors.email')) 
+                    <small> {{ flashMessages.get('errors.email') }} </small>
+                @endif
+            </div>
+
+            <div>
+                <label for="password" class="distance blue bold mt-10"> Password </label>
+                <input type="password" class="control" name="password">
+                @if (flashMessages.has('errors.password')) 
+                    <small> {{ flashMessages.get('errors.password') }} </small>
+                @endif
+            </div>
+
+            <div>
+                <label for="password_confirmation" class="distance blue bold mt-10"> Confirm Password </label>
+                <input type="password" class="control" name="password_confirmation" id="password_confirmation">
+                @if (flashMessages.has('errors.password_confirmation')) 
+                    <small> {{ flashMessages.get('errors.password_confirmation') }} </small>
+                @endif
+            </div>
+
+            <div style="display: flex; justify-content: center;" class="mt-10">
+                <button class="mr-10" type="submit"> Register </button>
+                <button type="submit"> Cancel </button>
+            </div>
+            <a href="https://learn-tech-tips.blogspot.com"> learn-tech-tips.blogspot.com </a>
+        </form>
+    </div>
+@endsection
+

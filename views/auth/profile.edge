@@ -1,0 +1,90 @@
+@layout('layouts/app')
+
+@section('content')
+    @set('title', 'Profile')
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-2">
+            </div>
+            <div class="col-3">
+                <img class="avatar" src={{ user.avatar}} alt="avatar" />
+            </div>
+
+            <div class="col-5">
+                <div class="d-flex"> 
+                    <h3> I am:  {{ user.username }} </h3> 
+
+                    @if (auth.isAuthenticated && auth.user.id === user.id) 
+                        <span class="ml-10"> <a role="button" class="btn btn-large btn-primary" href="/profile/edit"> Edit Profile </a> </span> 
+                    
+                    @else 
+
+                        {{--  {{inspect(auth.user.followings.map(f => f.following_id))}}  // debug on UI --}}
+                        
+                        @if (auth.user.followings.map(f => f.following_id).includes(user.id))
+                            <form action="{{`/follow/${user.id}?_method=delete`}}" method="post">
+                                <button type="submit" class="ml-10 btn btn-large btn-primary"> UnFollow  </button> 
+                            </form>
+
+                        @else 
+                            <form action="{{`/follow/${user.id}`}}" method="post">
+                                <button type="submit" class="ml-10 btn btn-large btn-primary"> Follow  </button> 
+                            </form>
+                        @endif
+                    @endif
+                </div>
+                <div>
+                    <span> {{ user.posts.length }} posts </span>
+                    <span style="margin-left: 20px"> {{ followers }} followers </span>
+ 
+                    <span style="margin-left: 20px"> {{ auth.user.followings.length }} followings  </span> 
+                </div>
+
+                @if (user.bio)
+                <div class="bio">
+                    <span > {{  user.bio }} </span> 
+                </div>
+                @endif
+            </div>
+            <div class="col-2">
+            </div>
+        </div>
+
+        <hr />
+        <div class="row text-align-center" style="margin-bottom: 10px">
+            <div class="col-12">
+                <h5> POSTS 
+                    @if (auth.isAuthenticated && auth.user.id === user.id) 
+                    <span class="">
+                        <a role="button" class="btn btn-primary" href="/posts/create">  + Create   </a>
+                    </span> 
+                    @endif
+                </h5>
+            </div>
+        </div>
+
+        @each (post in user.posts)
+
+        <div class="post-box"> 
+            
+            <div class="d-flex justify-content-space-between">  
+                <div class="d-flex align-items-center"> 
+                    <img src={{ user.avatar }} alt="" class="post-avatar"/>
+                    <p class="post-username"> {{ user.username }} </p>
+                </div>
+                <div class="">  
+                    <button class="btn btn-secondary mt-10"> ... </button>
+                </div>
+            </div> 
+            
+            <img class="post-image" src="{{ post.image }}" alt=""  />
+            <div class="d-flex justify-content-space-between mb-20 footer-post">
+                <h6 class="mt-10 grey"> {{ post.created.toFormat('yyyy/MM/dd HH:mm') }} </h6> 
+                <h6 class="bold post-caption "> {{ post.caption }} </h6> 
+            </div>
+        </div>
+
+        @endeach
+    </div>
+@endsection
+

@@ -1,0 +1,40 @@
+@layout('layouts/app')
+
+@section('content')
+    @set('title', 'Login')
+
+    <h3 style="display: flex; justify-content: center; font-weight: bold; color:brown;">
+        Welcome Back
+    </h3>
+
+    {{--  @include('partials._notification')  --}}
+
+    <div style="display: flex; justify-content: center;" class=" mb-30">
+        <form  class="border" method="POST" action='/login'>
+            <div>
+                <label class="distance blue bold" for='username'> Username </label>
+                <input type="text" class="form-control" name="username" id="username">
+             
+            </div>
+
+            <div>
+                <label class="distance blue bold mt-10"  for='password'> Password </label>
+                <input type="password" class="form-control" name="password" id="password">
+              
+            </div>
+
+            <div> 
+                <input type="checkbox" class="blue bold mt-20" name="remember" id="remember" /> Remember me 
+            </div>
+
+            <div style="display: flex; justify-content: center;" class="mt-10">
+                <button class="btn btn-primary mr-10" type="submit"> Login </button>
+                <a href="/" role="button" class="btn btn-secondary"> Cancel </a>
+            </div>
+
+            <div class="mt-20"> 
+                <a  href="https://learn-tech-tips.blogspot.com"> learn-tech-tips.blogspot.com </a>
+            </div>
+        </form>
+    </div>
+@endsection 
