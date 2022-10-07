@@ -3,10 +3,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { Roles } from 'src/roles/entity/roles.entity';
 
 @Entity('permissions') // same as name with db
 export class Permissions {
@@ -56,4 +58,8 @@ export class Permissions {
   // permissions - rolesPermissions - roles
   // @OneToMany(  () => RolesPermissions,   (rolesPermissions) => rolesPermissions.permissions )
   // public rolesPermissions: RolesPermissions[];
+ 
+
+  @ManyToMany(() => Roles, permissions => permissions.rp) 
+  roles: Roles[];
 }

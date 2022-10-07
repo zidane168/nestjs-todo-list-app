@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Users } from 'src/users/entity/users.entity';
+import { Permissions } from 'src/permissions/entity/permissions.entity';
 
 @Entity('roles') // same as name with db
 export class Roles {
@@ -49,9 +50,13 @@ export class Roles {
   // roles - usersRoles - users
   // @OneToMany(() => UsersRoles, usersRoles => usersRoles.roles)
   // public usersRoles: UsersRoles[];
-  @ManyToMany(() => Users, users => users.roles)
+  @ManyToMany(() => Users, users => users.roles, { onDelete: 'CASCADE' })
   @JoinTable()
-  users: Users[];
+  ur: Users[];
+
+  @ManyToMany(() => Permissions, permissions => permissions.roles, { onDelete: 'CASCADE' })
+  @JoinTable()
+  rp: Permissions[];
 
 
   // // roles - rolesPermissions - permissions
