@@ -7,7 +7,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { RolesPermissions } from 'src/roles-permissions/entity/roles-permissions.entity';
 
 @Entity('permissions') // same as name with db
 export class Permissions {
@@ -55,6 +54,6 @@ export class Permissions {
   public modified_by: number;
 
   // permissions - rolesPermissions - roles
-  @OneToMany(  () => RolesPermissions,   (rolesPermissions) => rolesPermissions.permissions )
-  public rolePermissions: RolesPermissions[];
+  // @OneToMany(  () => RolesPermissions,   (rolesPermissions) => rolesPermissions.permissions )
+  // public rolesPermissions: RolesPermissions[];
 }

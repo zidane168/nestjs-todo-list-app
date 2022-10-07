@@ -2,12 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { UsersRoles } from 'src/users-roles/entity/users-roles.entity';
-import { RolesPermissions } from 'src/roles-permissions/entity/roles-permissions.entity';
+import { Users } from 'src/users/entity/users.entity';
 
 @Entity('roles') // same as name with db
 export class Roles {
@@ -46,10 +47,14 @@ export class Roles {
   public modified_by: number;
 
   // roles - usersRoles - users
-  @OneToMany(() => UsersRoles, usersRoles => usersRoles.roles)
-  public usersRoles: UsersRoles[];
+  // @OneToMany(() => UsersRoles, usersRoles => usersRoles.roles)
+  // public usersRoles: UsersRoles[];
+  @ManyToMany(() => Users, users => users.roles)
+  @JoinTable()
+  users: Users[];
+
 
   // // roles - rolesPermissions - permissions
-  @OneToMany(() => RolesPermissions, rolesPermissions => rolesPermissions.roles)
-  public rolesPermissions: RolesPermissions[];
+  // @OneToMany(() => RolesPermissions, rolesPermissions => rolesPermissions.roles)
+  // public rolesPermissions: RolesPermissions[];
 }

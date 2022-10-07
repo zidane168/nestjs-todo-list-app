@@ -9,43 +9,12 @@ import { Users } from './entity/users.entity';
 // export type User = any;
 
 @Injectable()
-export class UsersService {
-  // private readonly users: User[];
-
-  // constructor() {
-  //     this.users = [
-  //         {
-  //             userId: 1,
-  //             username: 'zidane',
-  //             password: 'learntechtips'
-  //         },
-  //         {
-  //             userId: 2,
-  //             username: 'john',
-  //             password: 'john'
-  //         }
-  //     ]
-  // }
+export class UsersService { 
 
   constructor(
     @InjectRepository(Users) private usersRepository: Repository<Users>,
   ) {}
-
-  // async findOne(username: string ): Promise<User | undefined>{
-  //     // return this.users.find(user => user.username === username)
-  // }
-
-  // async login(username: string) {
-
-  //     let user = await this.userRepository.findOne({
-  //         where: {
-  //             username: username,
-  //             enabled: true,
-  //         }
-  //     })
-
-  //     return user;
-  // }
+  
 
   async login(username: string, password: string) {
     const user = await this.usersRepository

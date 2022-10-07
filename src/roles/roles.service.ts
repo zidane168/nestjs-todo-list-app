@@ -9,7 +9,6 @@ import { RolesDTO } from './roles.dto';
 import { RelationLoader } from 'typeorm/query-builder/RelationLoader';
 import { Common } from 'src/util/common.util';
 import { Roles } from 'src/roles/entity/roles.entity';
-import { RolesPermissions } from 'src/roles-permissions/entity/roles-permissions.entity';
 
 @Injectable()
 export class RolesService {
@@ -52,107 +51,103 @@ export class RolesService {
     }
 
 
-    async createRole(req: any, param: RolesDTO) {        // assign role to permissions
+    // async createRole(req: any, param: RolesDTO) {        // assign role to permissions
         
-        const queryRunner = getConnection().createQueryRunner();
+    //     const queryRunner = getConnection().createQueryRunner();
 
-        await queryRunner.connect();
-        await queryRunner.startTransaction();
+    //     await queryRunner.connect();
+    //     await queryRunner.startTransaction();
 
-        try {
-            const obj = new Roles();
-            obj.slug = param.slug;
-            obj.name = param.name;
-            obj.created_by = req.user ? req.user.id : null;
+    //     try {
+    //         const obj = new Roles();
+    //         obj.slug = param.slug;
+    //         obj.name = param.name;
+    //         obj.created_by = req.user ? req.user.id : null;
            
-            await queryRunner.manager.save(obj);
+    //         await queryRunner.manager.save(obj);
 
-            // assign role permissions
-            if (Common.isExist(param.rolesPermissions)) {
-                let rolesPermissions = [];
-                for (let i = 0; i < param.rolesPermissions.length; i++) {
-                    const temp          = new RolesPermissions();
-                    temp.permissionsId  = param.rolesPermissions[i].permissionsId;
-                    temp.rolesId        = obj.id;
+    //         // assign role permissions
+    //         if (Common.isExist(param.rolesPermissions)) {
+    //             let rolesPermissions = [];
+    //             for (let i = 0; i < param.rolesPermissions.length; i++) {
+    //                 const temp          = new RolesPermissions();
+    //                 temp.permissionsId  = param.rolesPermissions[i].permissionsId;
+    //                 temp.rolesId        = obj.id;
     
-                    rolesPermissions.push(temp);
-                }
+    //                 rolesPermissions.push(temp);
+    //             }
     
-                await queryRunner.manager.save(rolesPermissions);
-            }
+    //             await queryRunner.manager.save(rolesPermissions);
+    //         }
             
-            await queryRunner.commitTransaction();
-            this.myLogger.writeResponseLog(req, "Create all data successfully");
-            return new ApiSucceedResponse('Create all data successfully',  {});
+    //         await queryRunner.commitTransaction();
+    //         this.myLogger.writeResponseLog(req, "Create all data successfully");
+    //         return new ApiSucceedResponse('Create all data successfully',  {});
           
-        } catch (err) {
+    //     } catch (err) {
 
-            await queryRunner.rollbackTransaction();
-            throw new HttpException(err, HttpStatus.REQUEST_TIMEOUT);
+    //         await queryRunner.rollbackTransaction();
+    //         throw new HttpException(err, HttpStatus.REQUEST_TIMEOUT);
         
-        } finally {
-            await queryRunner.release();
-        }
-    }
+    //     } finally {
+    //         await queryRunner.release();
+    //     }
+    // }
 
-    async updateRole(req: any, param: RolesDTO, id: number) {
+    // async updateRole(req: any, param: RolesDTO, id: number) {
        
-        const queryRunner = getConnection().createQueryRunner();
-        await queryRunner.connect();
-        await queryRunner.startTransaction();
-        try {
+    //     const queryRunner = getConnection().createQueryRunner();
+    //     await queryRunner.connect();
+    //     await queryRunner.startTransaction();
+    //     try {
 
-            const obj = await this.rolesRepository.findOne({
-                where: {
-                    id: id, 
-                },
-            });
-            if (!obj) {
-                this.myLogger.writeResponseLog(req, "Role invalid!");
-                return new ApiErrorResponse('Role invalid!', {});
-            }
+    //         const obj = await this.rolesRepository.findOne({id);
+    //         if (!obj) {
+    //             this.myLogger.writeResponseLog(req, "Role invalid!");
+    //             return new ApiErrorResponse('Role invalid!', {});
+    //         }
     
-            if (param.slug) {
-                obj.slug = param.slug 
-            }
-            if (param.name) {
-                obj.name = param.name;
-            }
+    //         if (param.slug) {
+    //             obj.slug = param.slug 
+    //         }
+    //         if (param.name) {
+    //             obj.name = param.name;
+    //         }
 
-            obj.modified_by = req.user ? req.user.id : null;
-            await queryRunner.manager.save(obj);
+    //         obj.modified_by = req.user ? req.user.id : null;
+    //         await queryRunner.manager.save(obj);
 
-            if (Common.isExist(param.rolesPermissions)) {
+    //         if (Common.isExist(param.rolesPermissions)) {
 
-                // queryRunner.manager.createQueryBuilder()
-                //             .delete()
-                //             .from('rolesPermissions')
-                //             .where("rolesId = :id", { id })
-                //             .execute();
-                queryRunner.manager.delete('rolesPermissions', { rolesId: id }); // delete all rolesId = 3
-                let rolesPermissions = [];
-                for (let i = 0; i < param.rolesPermissions.length; i++) {
-                    const temp              = new RolesPermissions();
-                    temp.rolesId            = id,
-                    temp.permissionsId      = param.rolesPermissions[i].permissionsId;
-                    rolesPermissions.push(temp);
-                }
+    //             // queryRunner.manager.createQueryBuilder()
+    //             //             .delete()
+    //             //             .from('rolesPermissions')
+    //             //             .where("rolesId = :id", { id })
+    //             //             .execute();
+    //             queryRunner.manager.delete('rolesPermissions', { rolesId: id }); // delete all rolesId = 3
+    //             let rolesPermissions = [];
+    //             for (let i = 0; i < param.rolesPermissions.length; i++) {
+    //                 const temp              = new RolesPermissions();
+    //                 temp.rolesId            = id,
+    //                 temp.permissionsId      = param.rolesPermissions[i].permissionsId;
+    //                 rolesPermissions.push(temp);
+    //             }
     
-                await queryRunner.manager.save(rolesPermissions);
-            }
+    //             await queryRunner.manager.save(rolesPermissions);
+    //         }
           
-            await queryRunner.commitTransaction();
-            this.myLogger.writeResponseLog(req, "Updated data successfully");
-            return new ApiSucceedResponse('Updated data successfully', {});
+    //         await queryRunner.commitTransaction();
+    //         this.myLogger.writeResponseLog(req, "Updated data successfully");
+    //         return new ApiSucceedResponse('Updated data successfully', {});
 
-        } catch (err) {
-            await queryRunner.rollbackTransaction();
-            return new ApiErrorResponse('Updated data failed: ' + err, {});
+    //     } catch (err) {
+    //         await queryRunner.rollbackTransaction();
+    //         return new ApiErrorResponse('Updated data failed: ' + err, {});
         
-        } finally {
-            await queryRunner.release();
-        }
-    }
+    //     } finally {
+    //         await queryRunner.release();
+    //     }
+    // }
 
     async deleteRole(req: any, id: number) {
 

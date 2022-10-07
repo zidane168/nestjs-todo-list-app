@@ -53,28 +53,28 @@ export class RolesController {
     }
 
    
-    @Post()
-    @UseGuards(JwtAuthGuard, RoleGuard)
-    createRole (    // assign role with permission
-        @Request() req, 
-        @Body() dto: RolesDTO,
-        ) {
-        try {
-            if (!Common.isExist(dto.slug)) {
-                return new ApiErrorResponse('Missing param: slug', {});
-            }
-            if (!Common.isExist(dto.name)) {
-                return new ApiErrorResponse('Missing param: name', {});
-            }
+    // @Post()
+    // @UseGuards(JwtAuthGuard, RoleGuard)
+    // createRole (    // assign role with permission
+    //     @Request() req, 
+    //     @Body() dto: RolesDTO,
+    //     ) {
+    //     try {
+    //         if (!Common.isExist(dto.slug)) {
+    //             return new ApiErrorResponse('Missing param: slug', {});
+    //         }
+    //         if (!Common.isExist(dto.name)) {
+    //             return new ApiErrorResponse('Missing param: name', {});
+    //         }
 
-            this.myLogger.writeRequestLog(req, "POST", "NONE", dto);
-            return this.rolesService.createRole(req, dto);
+    //         this.myLogger.writeRequestLog(req, "POST", "NONE", dto);
+    //         return this.rolesService.createRole(req, dto);
 
-        } catch (error) {
-            this.myLogger.writeResponseLog(req, error);
-            throw new HttpException("error: " + error, HttpStatus.BAD_REQUEST);
-        }
-    }
+    //     } catch (error) {
+    //         this.myLogger.writeResponseLog(req, error);
+    //         throw new HttpException("error: " + error, HttpStatus.BAD_REQUEST);
+    //     }
+    // }
 
 
     @Post('search')
@@ -100,23 +100,23 @@ export class RolesController {
         }
     }
 
-    @Put(':id')
-    @UseGuards(JwtAuthGuard, RoleGuard)
-    updateRole (
-        @Request() req, 
-        @Param('id') id: string,
-        @Body() dto: RolesDTO,
-        ) {
-        try {
+    // @Put(':id')
+    // @UseGuards(JwtAuthGuard, RoleGuard)
+    // updateRole (
+    //     @Request() req, 
+    //     @Param('id') id: string,
+    //     @Body() dto: RolesDTO,
+    //     ) {
+    //     try {
 
-            this.myLogger.writeRequestLog(req, "PUT", Number(id), dto);
-            return this.rolesService.updateRole(req, dto, Number(id));
+    //         this.myLogger.writeRequestLog(req, "PUT", Number(id), dto);
+    //         return this.rolesService.updateRole(req, dto, Number(id));
 
-        } catch (error) {
-            this.myLogger.writeResponseLog(req, error);
-            throw new HttpException("error: " + error, HttpStatus.BAD_REQUEST);
-        }
-    }
+    //     } catch (error) {
+    //         this.myLogger.writeResponseLog(req, error);
+    //         throw new HttpException("error: " + error, HttpStatus.BAD_REQUEST);
+    //     }
+    // }
 
    
     @Delete(':id')

@@ -11,6 +11,8 @@ import { LoggerMiddleware } from './middleware/logger.middleware';
 import { SettingsModule } from './settings/settings.module';
 import { RolesModule } from './roles/roles.module';
 import { PermissionsModule } from './permissions/permissions.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Roles, Users, Permissions } from './typeorm';
 
 @Module({
   imports: [
@@ -31,8 +33,8 @@ import { PermissionsModule } from './permissions/permissions.module';
     UsersModule,
     RolesModule, 
     PermissionsModule,
-
-    SettingsModule
+    SettingsModule,
+    TypeOrmModule.forFeature([Users, Roles, Permissions ]),
   ],
   controllers: [AppController],
   providers: [AppService],
