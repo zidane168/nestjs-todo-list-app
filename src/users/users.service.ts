@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ApiErrorResponse } from 'src/util/api-error-response.util';
 import { ApiSucceedResponse } from 'src/util/api-success-response.util';
-import { Repository } from 'typeorm';
-import { Users } from './entitiy/users.entity';
+import { Repository } from 'typeorm'; 
 import * as bcrypt from 'bcrypt'
+import { Users } from './entity/users.entity';
 
 // export type User = any;
 

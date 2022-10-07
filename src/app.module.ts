@@ -9,6 +9,8 @@ import { PostModule } from './post/post.module';
 import { UsersModule } from './users/users.module';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { SettingsModule } from './settings/settings.module';
+import { RolesModule } from './roles/roles.module';
+import { PermissionsModule } from './permissions/permissions.module';
 
 @Module({
   imports: [
@@ -27,6 +29,9 @@ import { SettingsModule } from './settings/settings.module';
     TodoModule,
     PostModule,  
     UsersModule,
+    RolesModule, 
+    PermissionsModule,
+
     SettingsModule
   ],
   controllers: [AppController],

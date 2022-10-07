@@ -1,6 +1,6 @@
 import { MyLoggerService } from 'src/my-logger/my-logger.service';
 import { PermissionsDTO } from './permissions.dto';
-import { PermissionsEntity } from './permissions.entity';
+import { Permissions } from './entity/permissions.entity';
 import { ApiErrorResponse } from './../util/api-error-response.util';
 import { ApiSucceedResponse } from './../util/api-success-response.util';
 
@@ -13,7 +13,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class PermissionsService {
 
     constructor(
-        @InjectRepository(PermissionsEntity) private permissionsRepository: Repository<PermissionsEntity>,
+        @InjectRepository(Permissions) private permissionsRepository: Repository<Permissions>,
         private myLogger: MyLoggerService
     ) { }
 
@@ -57,7 +57,7 @@ export class PermissionsService {
         await queryRunner.startTransaction();
 
         try {
-            const obj = new PermissionsEntity();
+            const obj = new Permissions();
             obj.slug = param.slug;
             obj.name = param.name;
             obj.method = param.method;
@@ -86,8 +86,13 @@ export class PermissionsService {
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try {
+ 
 
-            const obj = await this.permissionsRepository.findOne(id);
+            const obj = await this.permissionsRepository.findOne({
+                where: {
+                    id: id
+                }
+            });
             if (!obj) {
                 this.myLogger.writeResponseLog(req, "Permission invalid!");
                 return new ApiErrorResponse('Permission invalid!', {});

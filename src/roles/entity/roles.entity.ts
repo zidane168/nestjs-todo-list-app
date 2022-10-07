@@ -6,6 +6,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { UsersRoles } from 'src/users-roles/entity/users-roles.entity';
+import { RolesPermissions } from 'src/roles-permissions/entity/roles-permissions.entity';
 
 @Entity('roles') // same as name with db
 export class Roles {
@@ -23,7 +25,7 @@ export class Roles {
   @Column()
   public name: string;
 
-  bled: boolean;
+  enabled: boolean;
 
   @CreateDateColumn({
     default: `now()`,
@@ -44,10 +46,10 @@ export class Roles {
   public modified_by: number;
 
   // roles - usersRoles - users
-  // @OneToMany(() => UsersRolesEntity, usersRoles => usersRoles.roles)
-  // public usersRoles: UsersRolesEntity[];
+  @OneToMany(() => UsersRoles, usersRoles => usersRoles.roles)
+  public usersRoles: UsersRoles[];
 
   // // roles - rolesPermissions - permissions
-  // @OneToMany(() => RolesPermissionsEntity, rolesPermissions => rolesPermissions.roles)
-  // public rolesPermissions: RolesPermissionsEntity[];
+  @OneToMany(() => RolesPermissions, rolesPermissions => rolesPermissions.roles)
+  public rolesPermissions: RolesPermissions[];
 }

@@ -1,21 +1,21 @@
-import { MyLoggerService } from 'src/my-logger/my-logger.service';
-import { RolesEntity } from './roles.entity';
+import { MyLoggerService } from 'src/my-logger/my-logger.service'; 
 import { ApiErrorResponse } from './../util/api-error-response.util';
 import { ApiSucceedResponse } from './../util/api-success-response.util';
 
 import { HttpException, HttpStatus, Injectable, Delete } from '@nestjs/common';
 import { Repository, getConnection } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RolesDTO } from './roles.dto';
-import { RolesPermissionsEntity } from 'src/roles-permissions/roles-permissions.entity';
+import { RolesDTO } from './roles.dto'; 
 import { RelationLoader } from 'typeorm/query-builder/RelationLoader';
 import { Common } from 'src/util/common.util';
+import { Roles } from 'src/roles/entity/roles.entity';
+import { RolesPermissions } from 'src/roles-permissions/entity/roles-permissions.entity';
 
 @Injectable()
 export class RolesService {
 
     constructor(
-        @InjectRepository(RolesEntity) private rolesRepository: Repository<RolesEntity>,
+        @InjectRepository(Roles) private rolesRepository: Repository<Roles>,
         private myLogger: MyLoggerService
     ) { }
 
@@ -42,7 +42,7 @@ export class RolesService {
         let [ list, count ] = await this.rolesRepository.createQueryBuilder('roles')
                             .leftJoinAndSelect('roles.rolesPermissions', 'rolesPermissions')
                             .leftJoinAndSelect('rolesPermissions.permissions', 'permissions')
-                            .where('roles.enabled = true')  // error condition show don't display the left join issue, remove permisisons.enabled = true will display again
+                            .where('roles.enabled = true')  // error condition show don't display the left join issue, remove permissions.enabled = true will display again
                             .orderBy('roles.id', 'DESC')
                             .offset( (Number(page) - 1) * this.paginateLimit )
                             .take( Number(limit) )  // use take, not limit limit is used for all child elements
@@ -60,7 +60,7 @@ export class RolesService {
         await queryRunner.startTransaction();
 
         try {
-            const obj = new RolesEntity();
+            const obj = new Roles();
             obj.slug = param.slug;
             obj.name = param.name;
             obj.created_by = req.user ? req.user.id : null;
@@ -71,7 +71,7 @@ export class RolesService {
             if (Common.isExist(param.rolesPermissions)) {
                 let rolesPermissions = [];
                 for (let i = 0; i < param.rolesPermissions.length; i++) {
-                    const temp          = new RolesPermissionsEntity();
+                    const temp          = new RolesPermissions();
                     temp.permissionsId  = param.rolesPermissions[i].permissionsId;
                     temp.rolesId        = obj.id;
     
@@ -102,7 +102,11 @@ export class RolesService {
         await queryRunner.startTransaction();
         try {
 
-            const obj = await this.rolesRepository.findOne(id);
+            const obj = await this.rolesRepository.findOne({
+                where: {
+                    id: id, 
+                },
+            });
             if (!obj) {
                 this.myLogger.writeResponseLog(req, "Role invalid!");
                 return new ApiErrorResponse('Role invalid!', {});
@@ -128,7 +132,7 @@ export class RolesService {
                 queryRunner.manager.delete('rolesPermissions', { rolesId: id }); // delete all rolesId = 3
                 let rolesPermissions = [];
                 for (let i = 0; i < param.rolesPermissions.length; i++) {
-                    const temp              = new RolesPermissionsEntity();
+                    const temp              = new RolesPermissions();
                     temp.rolesId            = id,
                     temp.permissionsId      = param.rolesPermissions[i].permissionsId;
                     rolesPermissions.push(temp);

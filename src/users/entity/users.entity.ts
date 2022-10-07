@@ -1,17 +1,20 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { UsersRoles } from "src/users-roles/entity/users-roles.entity";
-import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
-export class Users extends BaseEntity {
+@Entity('users')
+export class Users {
     @PrimaryGeneratedColumn({
         type: 'bigint',
         name: 'id'
     })
     id: number;
 
-    @Column()
+    @ApiProperty({example: 'username, unique', description: "username login"})
+    @Column({unique: true })
     public username: string;
 
+    @ApiProperty({example: '....', description: 'password login'})
     @Column() 
     public password: string;
 
@@ -35,8 +38,6 @@ export class Users extends BaseEntity {
 
     @Column() 
     public modified_by: number;
-
-
 
     // users - usersRoles - roles
     @OneToMany(() => UsersRoles, usersRoles => usersRoles.users)

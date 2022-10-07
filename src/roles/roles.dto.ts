@@ -9,6 +9,9 @@ export class RolesDTO {
     @IsString()
     name: string;
 
+    @IsBoolean()
+    enabled: boolean;
+
     @IsOptional()
     rolesPermissions: RolesPermissionsDTO[];
 
