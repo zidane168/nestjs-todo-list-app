@@ -9,22 +9,22 @@ export class AppController {
     private readonly appService: AppService, 
   ) {}
 
-  @Get('seed') 
-  async seed() {
-    await this.appService.seed(); 
-    return "Import completed";
+  @Get('createUser') 
+  async createUser() {
+    await this.appService.createUser(); 
+    return "Create User successfully";
   }
 
   @Get('createCompanyAccount') 
   async createCompanyAdmin() { 
     await this.appService.createCompanyAdmin();
-    return "Create company account";
+    return "Create company account successfully";
   }
 
   @Get('assignRoleWithPermission') 
   async assignRoleWithPermission() {
     await this.appService.assignRoleWithPermission(); 
-    return "Assign Role with permission completed";
+    return "Assign Role with permission successfully";
   }
 
 

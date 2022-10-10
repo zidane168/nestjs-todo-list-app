@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { getConnection, Repository } from 'typeorm';
 import { Users } from './users/entity/users.entity';
 import * as bcrypt from 'bcrypt';
 import { Roles } from './roles/entity/roles.entity';
@@ -79,37 +79,58 @@ export class AppService {
       },
     });
      
-   // role2.ur = [ user ];
+    // role2.ur = [ user ];
     // create users roles
     user.roles = [ role2 ];
 
     await this.usersRepository.save(user); 
   }
 
-  async seed() {
-    const user = await this.usersRepository.create({
-      username: 'vilh',
-      password: '123456', // bcrypt.hash('123456', jwtConstants.secret),
-    }); 
+  async createUser() {
 
-    // create roles
-    const role1 = await this.rolesRepository.create({
-      slug: 'admin',
-      name: 'admin',
-    });
-    const role2 = await this.rolesRepository.create({
-      slug: 'company-admin',
-      name: 'Company Admin',
-    });
-
-    await this.rolesRepository.save(role1); 
-    await this.rolesRepository.save(role2); 
+    // const queryRunner = getConnection().createQueryRunner();
      
-    // role1.ur = [ user ];
-    // create users roles
-    user.roles = [ role1, role2 ];
+    // await queryRunner.connect();
+    // await queryRunner.startTransaction();
 
-    await this.usersRepository.save(user); 
+    try {
+
+      const user = await this.usersRepository.create({
+        username: 'vilh',
+        password: '123456', // bcrypt.hash('123456', jwtConstants.secret),
+      }); 
+  
+      // create roles
+      const role1 = await this.rolesRepository.create({
+        slug: 'admin',
+        name: 'admin',
+      });
+      const role2 = await this.rolesRepository.create({
+        slug: 'company-admin',
+        name: 'Company Admin',
+      });
+  
+      await this.rolesRepository.save(role1); 
+      await this.rolesRepository.save(role2); 
+        
+      // await queryRunner.manager.save(role1);
+      // await queryRunner.manager.save(role2);
+    
+      // create users roles
+      user.roles = [ role1, role2 ];
+  
+      await this.usersRepository.save(user); 
+      // await queryRunner.manager.save(user);
+  
+      // await queryRunner.commitTransaction();
+    
+    } catch (err) {
+      // await queryRunner.rollbackTransaction();
+      throw new HttpException(err, HttpStatus.REQUEST_TIMEOUT);
+
+    } finally {
+      // await queryRunner.release();
+    } 
   }
 
   getHello(): string {
