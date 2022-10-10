@@ -18,7 +18,9 @@ export class Users {
     @Column() 
     public password: string;
 
-    @Column() 
+    @Column({
+        default: true
+    }) 
     public enabled: boolean;
 
     @CreateDateColumn({
@@ -27,7 +29,9 @@ export class Users {
     })
     public created: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     public created_by: number
 
     @CreateDateColumn({
@@ -36,7 +40,9 @@ export class Users {
     })
     public modified: string;
 
-    @Column() 
+    @Column({
+        nullable: true
+    }) 
     public modified_by: number;
 
     // users - usersRoles - roles

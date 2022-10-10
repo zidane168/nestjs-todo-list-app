@@ -27,6 +27,9 @@ export class Roles {
   @Column()
   public name: string;
 
+  @Column({
+    default: true,
+  })
   enabled: boolean;
 
   @CreateDateColumn({
@@ -35,7 +38,9 @@ export class Roles {
   })
   public created: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   public created_by: number;
 
   @CreateDateColumn({
@@ -44,20 +49,23 @@ export class Roles {
   })
   public modified: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   public modified_by: number;
 
   // roles - usersRoles - users
   // @OneToMany(() => UsersRoles, usersRoles => usersRoles.roles)
   // public usersRoles: UsersRoles[];
-  @ManyToMany(() => Users, users => users.roles, { onDelete: 'CASCADE' })
+  @ManyToMany(() => Users, (users) => users.roles, { onDelete: 'CASCADE' })
   @JoinTable()
   ur: Users[];
 
-  @ManyToMany(() => Permissions, permissions => permissions.roles, { onDelete: 'CASCADE' })
+  @ManyToMany(() => Permissions, (permissions) => permissions.roles, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable()
   rp: Permissions[];
-
 
   // // roles - rolesPermissions - permissions
   // @OneToMany(() => RolesPermissions, rolesPermissions => rolesPermissions.roles)

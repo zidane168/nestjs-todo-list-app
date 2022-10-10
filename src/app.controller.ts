@@ -9,9 +9,16 @@ export class AppController {
     private readonly appService: AppService, 
   ) {}
 
-  @Get() 
-  getHello() {
-    return this.appService.getHello();
+  @Get('seed') 
+  async seed() {
+    await this.appService.seed(); 
+    return "Import completed";
+  }
+
+  @Get('createCompanyAccount') 
+  async createCompanyAdmin() { 
+    await this.appService.createCompanyAdmin();
+    return "Create company account";
   }
 
   @Get('cms/index')
