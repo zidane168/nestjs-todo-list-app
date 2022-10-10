@@ -21,7 +21,15 @@ import entities from 'src/typeorm';
                 // ssl: {
                 //     rejectUnauthorized: false,
                 // },
-                synchronize: true,  // should be false at production.
+                synchronize: false,  // should be false at production.
+
+                // migrations: [
+                //     'src/migrations/*.ts',
+                //     'dist/migrations/*{.js,.ts}'
+                // ],
+                // cli: {
+                //     migrationsDir: 'src/migrations'
+                // }
             })
         })
     ],
