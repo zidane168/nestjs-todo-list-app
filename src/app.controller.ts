@@ -21,6 +21,13 @@ export class AppController {
     return "Create company account";
   }
 
+  @Get('assignRoleWithPermission') 
+  async assignRoleWithPermission() {
+    await this.appService.assignRoleWithPermission(); 
+    return "Assign Role with permission completed";
+  }
+
+
   @Get('cms/index')
   @Render('cms/index')
   index() {

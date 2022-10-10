@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
   ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -40,10 +41,14 @@ export class Permissions {
   })
   public created: string;
 
-  @Column()
+  @Column({
+    default: true
+  })
   public enabled: boolean;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   public created_by: number;
 
   @CreateDateColumn({
@@ -52,7 +57,9 @@ export class Permissions {
   })
   public modified: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   public modified_by: number;
 
   // permissions - rolesPermissions - roles
@@ -60,6 +67,10 @@ export class Permissions {
   // public rolesPermissions: RolesPermissions[];
  
 
-  @ManyToMany(() => Roles, permissions => permissions.rp) 
-  roles: Roles[];
+  // @ManyToMany(() => Roles, permissions => permissions.rp) 
+  // roles: Roles[];
+
+  @ManyToMany(() => Roles, roles => roles.permissions) 
+  @JoinTable()
+  rp: Roles[];
 }

@@ -61,11 +61,18 @@ export class Roles {
   @JoinTable()
   ur: Users[];
 
-  @ManyToMany(() => Permissions, (permissions) => permissions.roles, {
+  // @ManyToMany(() => Permissions, (permissions) => permissions.roles, {
+  //   onDelete: 'CASCADE',
+  // })
+  // @JoinTable()
+  // rp: Permissions[];
+
+  @ManyToMany(() => Permissions, (permissions) => permissions.rp, {
     onDelete: 'CASCADE',
   })
-  @JoinTable()
-  rp: Permissions[];
+  permissions: Permissions[];
+
+
 
   // // roles - rolesPermissions - permissions
   // @OneToMany(() => RolesPermissions, rolesPermissions => rolesPermissions.roles)

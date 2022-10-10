@@ -18,37 +18,52 @@ export class AppService {
     private readonly permissionsRepository: Repository<Permissions>,
   ) {}
 
-  async createPermission() {
+  async assignRoleWithPermission() {
 
     // create permissions
-    // const permission1 = await this.permissionsRepository.create({
-    //   slug: 'post-add',
-    //   name: 'post',
-    //   method: 'add',
-    //   functionName: 'add',
-    // });
-    // const permission2 = await this.permissionsRepository.create({
-    //   slug: 'post-edit',
-    //   name: 'post',
-    //   method: 'edit',
-    //   functionName: 'edit',
-    // });
-    // const permission3 = await this.permissionsRepository.create({
-    //   slug: 'post-view',
-    //   name: 'post',
-    //   method: 'view',
-    //   functionName: 'view',
-    // });
-    // const permission4 = await this.permissionsRepository.create({
-    //   slug: 'post-index',
-    //   name: 'post',
-    //   method: 'index',
-    //   functionName: 'index',
-    // });
-    // this.rolesRepository.save(permission1);
-    // this.rolesRepository.save(permission2);
-    // this.rolesRepository.save(permission3);
-    // this.rolesRepository.save(permission4);
+    const permission1 = await this.permissionsRepository.create({
+      slug: 'post-add',
+      name: 'post',
+      method: 'add',
+      functionName: 'add',
+    });
+    const permission2 = await this.permissionsRepository.create({
+      slug: 'post-edit',
+      name: 'post',
+      method: 'edit',
+      functionName: 'edit',
+    });
+    const permission3 = await this.permissionsRepository.create({
+      slug: 'post-view',
+      name: 'post',
+      method: 'view',
+      functionName: 'view',
+    });
+    const permission4 = await this.permissionsRepository.create({
+      slug: 'post-index',
+      name: 'post',
+      method: 'index',
+      functionName: 'index',
+    });
+
+    // remember await, that a key to sync data to DB
+    await this.permissionsRepository.save(permission1);
+    await this.permissionsRepository.save(permission2);
+    await this.permissionsRepository.save(permission3);
+    await this.permissionsRepository.save(permission4);
+
+    // find role
+    const role = await this.rolesRepository.findOne({
+      where : {
+        name: 'Company Admin'
+      }
+    })
+ 
+    // assign role with permission  
+    role.permissions = [ permission1, permission2, permission3, permission4 ]
+    
+    await this.rolesRepository.save(role);
+   
   }
 
   async createCompanyAdmin() {
