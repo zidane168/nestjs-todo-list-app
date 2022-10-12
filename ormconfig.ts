@@ -1,7 +1,7 @@
 import { ConfigService } from "@nestjs/config";
 import { DataSource } from "typeorm";
 
-let configService: ConfigService;
+let configService = new ConfigService();
 
 // https://www.youtube.com/watch?v=sNosL578ECo
 const config = new DataSource({
@@ -9,9 +9,9 @@ const config = new DataSource({
   synchronize: false,
   migrations: ['dist/src/migrations/*.js'],
   database: 'todolist',
-  port: 55432,
-  username: 'postgres',
-  password: '123456',
+  port:     55432,
+  username: 'postgres', // configService.get('POSTGRES_USER'),
+  password: '123456', // "'" + configService.get('POSTGRES_PASSWORD') +  "'",
   logging: false,
   // cli: {
   //   migrationsDir: './src/migrations',
