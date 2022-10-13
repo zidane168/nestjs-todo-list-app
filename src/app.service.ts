@@ -1,11 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getConnection, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Users } from './users/entity/users.entity';
 import * as bcrypt from 'bcrypt';
 import { Roles } from './roles/entity/roles.entity';
 import { Permissions } from './permissions/entity/permissions.entity'; 
 import { jwtConstants } from './auth/constants';
+import { dataSource } from './config/datasource.config';
 
 @Injectable()
 export class AppService {
@@ -92,48 +93,47 @@ export class AppService {
 
   async createUser() {
 
-    // const queryRunner = getConnection().createQueryRunner();
-     
-    // await queryRunner.connect();
-    // await queryRunner.startTransaction();
+    const queryRunner = dataSource.createQueryRunner()
+    await queryRunner.connect() 
+    await queryRunner.startTransaction()
 
     try {
 
       const user = await this.usersRepository.create({
-        username: 'vilh',
-        password: '123456', // bcrypt.hash('123456', jwtConstants.secret),
+        username: 'vilh2',
+        password: '12345678', // bcrypt.hash('123456', jwtConstants.secret),
       }); 
   
       // create roles
       const role1 = await this.rolesRepository.create({
-        slug: 'admin',
-        name: 'admin',
+        slug: 'admin2',
+        name: 'admin2',
       });
       const role2 = await this.rolesRepository.create({
-        slug: 'company-admin',
-        name: 'Company Admin',
+        slug: 'company-admin2',
+        name: 'Company Admin2',
       });
-  
-      await this.rolesRepository.save(role1); 
-      await this.rolesRepository.save(role2); 
-        
-      // await queryRunner.manager.save(role1);
-      // await queryRunner.manager.save(role2);
-    
+
+      // await this.rolesRepository.save(role1); 
+      // await this.rolesRepository.save(role2); 
+      await queryRunner.manager.save(role1)
+      await queryRunner.manager.save(role2)
+
+         
       // create users roles
       user.roles = [ role1, role2 ];
   
-      await this.usersRepository.save(user); 
-      // await queryRunner.manager.save(user);
-  
-      // await queryRunner.commitTransaction();
+      //await this.usersRepository.save(user); 
+      await queryRunner.manager.save(user) 
+      await queryRunner.commitTransaction()
+       
     
     } catch (err) {
-      // await queryRunner.rollbackTransaction();
+      await queryRunner.rollbackTransaction()
       throw new HttpException(err, HttpStatus.REQUEST_TIMEOUT);
 
     } finally {
-      // await queryRunner.release();
+      await queryRunner.release()
     } 
   }
 
