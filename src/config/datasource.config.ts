@@ -11,8 +11,6 @@ export const dataSource =  new DataSource({
   entities: [Users, Roles, Permissions],
   synchronize: false,
   logging: true, 
-  subscribers: [],
-  migrations: [],
 })
 
   

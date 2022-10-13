@@ -100,18 +100,18 @@ export class AppService {
     try {
 
       const user = await this.usersRepository.create({
-        username: 'vilh2',
-        password: '12345678', // bcrypt.hash('123456', jwtConstants.secret),
+        username: 'vilh',
+        password: '123456', // bcrypt.hash('123456', jwtConstants.secret),
       }); 
   
       // create roles
       const role1 = await this.rolesRepository.create({
-        slug: 'admin2',
-        name: 'admin2',
+        slug: 'admin',
+        name: 'admin',
       });
       const role2 = await this.rolesRepository.create({
-        slug: 'company-admin2',
-        name: 'Company Admin2',
+        slug: 'company-admin',
+        name: 'Company Admin',
       });
 
       // await this.rolesRepository.save(role1); 
