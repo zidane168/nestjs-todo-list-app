@@ -15,7 +15,11 @@ export class Setting {
 
     @ApiProperty()
     @Column()
-    public value: string;
+    public value: number;
+
+    @ApiProperty()
+    @Column()
+    public content: string;
 
     @ApiProperty()
     @Column({

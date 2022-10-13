@@ -8,8 +8,7 @@ export const connectionSource = new DataSource({
     username: 'postgres',
     password: '123456',
     database: 'todolist',
-    entities: ['src/**/entity/*.entity.ts'],        // cho generate cai table here!
-   
+    entities: ['src/**/entity/*.entity.ts'],     
     extra: {
         charset: 'utf8mb4_unicode_ci',
     },
@@ -17,7 +16,6 @@ export const connectionSource = new DataSource({
     logging: true,  
     migrations: ['src/migrations/*.ts'],
     subscribers: ['src/subscriber/**/*{.ts,.js}'],  
-  
 });
 
 connectionSource.initialize();

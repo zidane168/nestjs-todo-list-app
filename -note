@@ -1,1 +1,97 @@
 https://syntaxer.medium.com/nestjs-create-a-crud-api-using-typeorm-and-postgresql-2c1ae6c2726
+
+
+
+NestJS Code snippet
+
+https://syntaxer.medium.com/nestjs-create-a-crud-api-using-typeorm-and-postgresql-2c1ae6c2726
+
+Create projects
+nest new todo-list-app
+
+npm i @nestjs/config
+
+Verification env file
+npm i joi @types/joi
+
+postgresql, typeorm
+npm i @nestjs/typeorm typeorm pg
+
+express
+npm i @nestjs/platform-express
+
+// nestjs authentication
+npm i - -save @nestjs/passport passport passport-local
+
+npm i —save-dev @types/passport-local 
+
+npm I '@nestjs/typeorm'
+npm i "@nestjs/config"
+
+nest g module users (nest generate module users)
+nest g service users 
+nest g module auth 
+nest g service auth 
+
+// ———————————————————
+app.module
+@Module({
+  imports: [AuthModule, UsersModule],
+  controllers: [AppController],
+  providers: [AppService],
+})
+
+// ———————————————————
+user.module
+@Module({
+  imports: [
+    UsersModule, 
+  ],
+  providers: [UsersService],
+  exports: [UsersService],
+})
+
+// ———————————————————
+auth.module
+@Module({
+  imports: [
+    UsersModule,
+    PassportModule,
+    JwtModule.register({
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '60s' },
+    }),
+  ],
+  providers: [AuthService, LocalStrategy, JwtStrategy],
+  exports: [AuthService],
+})
+
+
+
+// CRUD
+npm i @nestjsx/crud class-transformer class-validator
+
+npm i --save @nestjs/swagger swagger-ui-express
+
+/*----------------------------- migration ---------------------------------- */
+
+./configORM.ts
+./src/migrations
+
+----- add command "typeorm" into package.json -----
+"typeorm": "typeorm-ts-node-commonjs -d ./configORM.ts",
+"migration:generate": "npm run typeorm migration:generate",
+"migration:run": "npm run typeorm migration:run", 
+"migration:revert": "npm run typeorm migration:revert"
+
+npm run typeorm migration:generate src/migrations/Init
+npm run typeorm migration:run (=== npm run migration:run )
+
+// Chú ý:
+đường dẫn trong migrations (./configORM.ts)  migrations: ['src/migrations/*.ts'] phải đúng, ko đúng se báo "No migrations are pending" khi chay npm run typeorm migration:run
+và các config phải trỏ đúng db, bao gồm host, port này nọ
+
+cach chỉnh sưa bảng: 
+khi sửa entity lai thì phải chay lai hai dòng sau
+npm run typeorm migration:generate src/migrations/Modified
+npm run typeorm migration:run 
