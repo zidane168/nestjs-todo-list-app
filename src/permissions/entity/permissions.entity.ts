@@ -1,16 +1,7 @@
- 
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinTable,  ManyToMany,  PrimaryGeneratedColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { Roles } from 'src/roles/entity/roles.entity';
-
+import { Roles } from './../../roles/entity/roles.entity';
+ 
 @Entity('permissions') // same as name with db
 export class Permissions {
   @PrimaryGeneratedColumn({

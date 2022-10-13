@@ -19,11 +19,11 @@
       "test:cov": "jest --coverage",
       "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
       "test:e2e": "jest --config ./test/jest-e2e.json",
-      "typeorm": "typeorm-ts-node-commonjs -d ./ormconfig.ts",
-     
-      "migrate:generate": "npm run build && npm run typeorm migration:generate -- -n",
-      "migrate:up": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:run -d src/modules/config/ormconfig.ts",
-      "migrate:down": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:revert -d src/modules/config/ormconfig.ts"
+      "typeorm": "typeorm-ts-node-commonjs -d ./configORM.ts",
+ 
+      "migration:generate": "npm run typeorm migration:generate",
+      "migration:run": "npm run typeorm migration:run", 
+      "migration:revert": "npm run typeorm migration:revert"
 
    },
    "dependencies": {

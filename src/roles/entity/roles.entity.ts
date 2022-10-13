@@ -8,8 +8,9 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { Users } from 'src/users/entity/users.entity';
-import { Permissions } from 'src/permissions/entity/permissions.entity';
+
+import { Users } from './../../users/entity/users.entity'; 
+import { Permissions } from './../../permissions/entity/permissions.entity';
 
 @Entity('roles') // same as name with db
 export class Roles {

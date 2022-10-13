@@ -1,7 +1,7 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Todo extends BaseEntity{
+export class Todo {
     @PrimaryGeneratedColumn({
         type: 'bigint',
         name: 'id' 

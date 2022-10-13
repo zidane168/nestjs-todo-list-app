@@ -18,6 +18,10 @@ export class AppService {
     private readonly permissionsRepository: Repository<Permissions>,
   ) {}
 
+  welcome(){
+    return "welcome to todolist"
+  }
+
   async assignRoleWithPermission() {
 
     // create permissions

@@ -1,8 +1,8 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {  Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { ApiProperty } from "@nestjs/swagger"
 
-@Entity()
-export class Setting extends BaseEntity {
+@Entity('setting')
+export class Setting {
     @PrimaryGeneratedColumn({
         type: 'bigint',
         name: 'id'

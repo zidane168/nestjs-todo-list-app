@@ -9,6 +9,12 @@ export class AppController {
     private readonly appService: AppService, 
   ) {}
 
+  @Get('') 
+  welcome() {
+    return this.appService.welcome(); 
+  }
+
+
   @Get('createUser') 
   async createUser() {
     await this.appService.createUser(); 
