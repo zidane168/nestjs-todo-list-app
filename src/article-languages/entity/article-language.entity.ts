@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Article } from "./../../articles/entity/article.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('articleLanguages') // same as name with db
+@Entity('articleLanguage') // same as name with db
 export class ArticleLanguage {
     @PrimaryGeneratedColumn({
         type: 'bigint',
