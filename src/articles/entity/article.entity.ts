@@ -5,6 +5,7 @@ import {
   Column,
   CreateDateColumn,
   PrimaryGeneratedColumn,
+  DeleteDateColumn,
 } from 'typeorm';
 
 import { ArticleLanguage } from './../../article-languages/entity/article-language.entity';
@@ -51,4 +52,15 @@ export class Article {
     nullable: true,
   })
   public modified_by: number;
+
+  @DeleteDateColumn({ 
+    default: null,
+    nullable: true,
+  })
+  public deletedAt: string;
+
+  @Column({
+    nullable: true,
+  })
+  public deleted_by: number;
 }

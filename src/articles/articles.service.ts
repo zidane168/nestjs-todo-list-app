@@ -8,7 +8,6 @@ import { Article } from './entity/article.entity';
 import { ArticleLanguage } from './../article-languages/entity/article-language.entity';
 import { ApiSucceedResponse } from 'src/util/api-success-response.util';
 import { ApiErrorResponse } from 'src/util/api-error-response.util';
-import { CreateArticleLanguageDto } from 'src/article-languages/dto/create-article-language.dto';
 
 @Injectable()
 export class ArticlesService {
@@ -114,7 +113,7 @@ export class ArticlesService {
       await this.articleLanguageRepository.update(language.id, language); 
     }
     await queryRunner.commitTransaction();
-    
+
     const newArticle = await repo.findOne({
       where: {
         id,
@@ -124,13 +123,12 @@ export class ArticlesService {
       ],
     })
 
-   
     await queryRunner.release();
     return new ApiSucceedResponse("data is saved", newArticle);
-
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} article`;
+  async remove(id: number) { 
+    const deleted = await this.articleRepository.softDelete(id)
+    return new ApiSucceedResponse("data is deleted", deleted);
   }
 }
