@@ -15,6 +15,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { typeOrmAsyncConfig } from './config/typeorm.config';
+import { CompaniesModule } from './companies/companies.module'; 
+import { CompanyLanguagesModule } from './company-languages/company-languages.module';
+import { ArticlesModule } from './articles/articles.module';
+import { ArticleLanguagesModule } from './article-languages/article-languages.module';
 
 @Module({
   imports: [
@@ -69,6 +73,10 @@ import { typeOrmAsyncConfig } from './config/typeorm.config';
     PermissionsModule,
     // SettingsModule,
     TypeOrmModule.forFeature([Users, Roles, Permissions ]),
+    CompaniesModule,
+    CompanyLanguagesModule,
+    ArticlesModule,
+    ArticleLanguagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
