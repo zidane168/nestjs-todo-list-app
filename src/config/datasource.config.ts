@@ -1,4 +1,4 @@
-import { ArticleLanguage, Article, Permissions, Roles, Users } from "src/typeorm";
+import { ArticleLanguage, Article, Permissions, Roles, Users, ArticleImage } from "src/typeorm";
 import { DataSource } from "typeorm";
 
 // used for transaction
@@ -9,7 +9,7 @@ export const dataSource =  new DataSource({
   username: "postgres", 
   password: "123456",
   database: "todolist",
-  entities: [Users, Roles, Permissions, Article, ArticleLanguage],
+  entities: [Users, Roles, Permissions, Article, ArticleLanguage, ArticleImage],
   synchronize: false,
   logging: true, 
 })

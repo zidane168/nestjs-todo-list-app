@@ -19,6 +19,7 @@ import { CompaniesModule } from './companies/companies.module';
 import { CompanyLanguagesModule } from './company-languages/company-languages.module';
 import { ArticlesModule } from './articles/articles.module';
 import { ArticleLanguagesModule } from './article-languages/article-languages.module';
+import { ArticleImagesModule } from './article-images/article-images.module';
 
 @Module({
   imports: [
@@ -77,6 +78,7 @@ import { ArticleLanguagesModule } from './article-languages/article-languages.mo
     CompanyLanguagesModule,
     ArticlesModule,
     ArticleLanguagesModule,
+    ArticleImagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -4,7 +4,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('articleLanguage') // same as name with db
 export class ArticleLanguage {
-    @PrimaryGeneratedColumn({
+      @PrimaryGeneratedColumn({
         type: 'bigint',
         name: 'id',
       })

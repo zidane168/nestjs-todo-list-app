@@ -95,3 +95,5 @@ cach chỉnh sưa bảng:
 khi sửa entity lai thì phải chay lai hai dòng sau
 npm run typeorm migration:generate src/migrations/Modified
 npm run typeorm migration:run 
+
+nest g resource articles

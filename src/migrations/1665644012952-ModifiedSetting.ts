@@ -38,3 +38,7 @@ export class ModifiedSetting1665644012952 implements MigrationInterface {
     }
 
 }
+
+
+// bin/cake bake migration generation src/migrations/Init
+// bin/cake bake migration run src/migrations/Init

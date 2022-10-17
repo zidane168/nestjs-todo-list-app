@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 
 import { ArticleLanguage } from './../../article-languages/entity/article-language.entity';
+import { ArticleImage } from './../../article-images/entity/article-image.entity';
 
 @Entity('article')
 export class Article {
@@ -18,9 +19,14 @@ export class Article {
   })
   id: number;
 
-  // Companies have n Company Languages
+  // Article have n Article Languages
   @OneToMany( () => ArticleLanguage, (articleLanguages) => articleLanguages.Article, { onDelete: 'CASCADE',  onUpdate: 'CASCADE'} )
   ArticleLanguages: ArticleLanguage[];
+
+  // Article have n Article Images
+  @OneToMany( () => ArticleImage, (articleImages) => articleImages.Article, { onDelete: 'CASCADE',  onUpdate: 'CASCADE'} )
+  ArticleImages: ArticleImage[];
+ 
 
   @ApiProperty({ example: '', description: '' })
   @Column()

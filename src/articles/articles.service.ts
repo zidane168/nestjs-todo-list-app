@@ -8,13 +8,15 @@ import { Article } from './entity/article.entity';
 import { ArticleLanguage } from './../article-languages/entity/article-language.entity';
 import { ApiSucceedResponse } from 'src/util/api-success-response.util';
 import { ApiErrorResponse } from 'src/util/api-error-response.util';
+import { ArticleImage } from './../article-images/entity/article-image.entity';
 
 @Injectable()
 export class ArticlesService {
 
   constructor(
     @InjectRepository(Article)   private readonly articleRepository: Repository<Article>,
-    @InjectRepository(ArticleLanguage) private readonly articleLanguageRepository: Repository<ArticleLanguage>
+    @InjectRepository(ArticleLanguage) private readonly articleLanguageRepository: Repository<ArticleLanguage>,
+    @InjectRepository(ArticleImage) private readonly articleImageRepository: Repository<ArticleImage>
   ) {}
 
   async create(createArticleDto: CreateArticleDto) {
@@ -130,5 +132,39 @@ export class ArticlesService {
   async remove(id: number) { 
     const deleted = await this.articleRepository.softDelete(id)
     return new ApiSucceedResponse("data is deleted", deleted);
+  }
+
+  async upload(file: any, createArticleDto: CreateArticleDto) {
+
+    const queryRunner = dataSource.createQueryRunner()
+    await queryRunner.connect()
+    await queryRunner.startTransaction()
+
+    try  {
+      const article = await this.articleRepository.create( createArticleDto )
+      await queryRunner.manager.save(article); 
+
+      const articleImages = new ArticleImage();
+      articleImages.originalName = file.originalname
+      articleImages.mimetype = file.mimetype
+      articleImages.path = '/uploads/' + file.filename
+      articleImages.Article = article; 
+      
+      await this.articleImageRepository.create(articleImages)
+      await queryRunner.manager.save(articleImages)
+  
+      await queryRunner.commitTransaction();
+      return new ApiSucceedResponse("data is saved", {});
+
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+      return new ApiSucceedResponse("data is not saved", err);
+
+    } finally {
+      queryRunner.release() 
+    }
+   
+
+
   }
 }
