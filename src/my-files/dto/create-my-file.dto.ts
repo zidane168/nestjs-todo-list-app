@@ -1,7 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-export class CreateFileDto {
-
+export class CreateMyFileDto {
     @ApiProperty({ type: String,  example: 'path', description: 'This is slug example' })
     path: string 
 
@@ -9,5 +8,5 @@ export class CreateFileDto {
     originalName: string
 
     @ApiProperty({ type: String, example: 'slug', description: 'This is slug example' })
-    mimetype: string;
+    mimeType: string;
 }

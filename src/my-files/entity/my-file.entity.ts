@@ -1,8 +1,8 @@
-import { Base } from "src/entity/base";
+import { Base } from "../../entity/base";
 import { Column, Entity } from "typeorm";
 
-@Entity('file')
-export class File extends Base {
+@Entity('myFile')
+export class MyFile extends Base {
    
     @Column()
     path: string 
@@ -13,5 +13,6 @@ export class File extends Base {
     @Column({
         default: null
     })
-    mimetype: string;
+    mimeType: string;
 }
+

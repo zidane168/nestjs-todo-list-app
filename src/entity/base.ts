@@ -2,12 +2,13 @@ import { Column, CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } fr
 
 export abstract class Base {
   @PrimaryGeneratedColumn({
+    
     type: 'bigint',
     name: 'id',
   })
   id: number;
 
-  @CreateDateColumn({
+  @CreateDateColumn({ 
     default: `now()`,
     nullable: true,
   })

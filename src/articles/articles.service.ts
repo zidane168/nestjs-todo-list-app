@@ -234,7 +234,7 @@ export class ArticlesService {
       
       await queryRunner.manager.save(articleImages)
 
-      console.log(req.body);
+      // console.log(req.body);
 
       for (let i = 0; i < createArticleDto.articleLanguages.length; i++) {
         let alias = createArticleDto.articleLanguages[i].alias

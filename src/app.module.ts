@@ -19,8 +19,9 @@ import { CompaniesModule } from './companies/companies.module';
 import { CompanyLanguagesModule } from './company-languages/company-languages.module';
 import { ArticlesModule } from './articles/articles.module';
 import { ArticleLanguagesModule } from './article-languages/article-languages.module';
-import { ArticleImagesModule } from './article-images/article-images.module';
-import { FilesModule } from './files/files.module';
+import { ArticleImagesModule } from './article-images/article-images.module'; 
+import { MyFilesModule } from './my-files/my-files.module';
+ 
 
 @Module({
   imports: [
@@ -80,7 +81,7 @@ import { FilesModule } from './files/files.module';
     ArticlesModule,
     ArticleLanguagesModule,
     ArticleImagesModule,
-    FilesModule,
+    MyFilesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
