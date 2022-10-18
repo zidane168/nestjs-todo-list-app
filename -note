@@ -97,3 +97,6 @@ npm run typeorm migration:generate src/migrations/Modified
 npm run typeorm migration:run 
 
 nest g resource articles
+
+ // @Column(jsonb)
+      // update child relationship one many

@@ -9,10 +9,11 @@ export class ArticleLanguage {
         name: 'id',
       })
       id: number; 
-  
-      @ManyToOne(() => Article, (article) => article.ArticleLanguages)
+      
+      @ManyToOne(() => Article, (article) => article.ArticleLanguages)    // , { orphanedRowAction: "delete",})
       Article: Article
 
+     
       @ApiProperty({ example: "en_US", description: "language input here" })
       @Column()
       public alias: string;
@@ -24,5 +25,6 @@ export class ArticleLanguage {
       @ApiProperty({ example: "", description: "!" })
       @Column()
       public description: string;
+ 
   
 }

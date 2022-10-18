@@ -20,6 +20,7 @@ import { CompanyLanguagesModule } from './company-languages/company-languages.mo
 import { ArticlesModule } from './articles/articles.module';
 import { ArticleLanguagesModule } from './article-languages/article-languages.module';
 import { ArticleImagesModule } from './article-images/article-images.module';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
@@ -79,6 +80,7 @@ import { ArticleImagesModule } from './article-images/article-images.module';
     ArticlesModule,
     ArticleLanguagesModule,
     ArticleImagesModule,
+    FilesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

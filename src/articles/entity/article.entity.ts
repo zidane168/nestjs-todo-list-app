@@ -26,9 +26,8 @@ export class Article {
   // Article have n Article Images
   @OneToMany( () => ArticleImage, (articleImages) => articleImages.Article, { onDelete: 'CASCADE',  onUpdate: 'CASCADE'} )
   ArticleImages: ArticleImage[];
- 
 
-  @ApiProperty({ example: '', description: '' })
+ 
   @Column()
   public slug: string;
 

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, ParseFilePipeBuilder } from '@nestjs/common';
+import { Request, Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, ParseFilePipeBuilder } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express'; 
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
@@ -55,11 +55,13 @@ export class ArticlesController {
       })
       .build(),
     ) file: Express.Multer.File,
-    @Body() createArticleDto: CreateArticleDto
+    @Body() createArticleDto: CreateArticleDto,
+    @Request() req
  
   ) { 
 
-    return this.articlesService.upload(file, createArticleDto);
+    console.log(req.body)
+    return this.articlesService.upload(file, createArticleDto, req);
     // return {
     //   originalname: file.originalname,
     //   fileName: file.fieldname,
