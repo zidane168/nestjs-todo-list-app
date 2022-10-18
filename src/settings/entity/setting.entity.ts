@@ -1,51 +1,12 @@
-import {  Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { ApiProperty } from "@nestjs/swagger"
+import { Content } from "./../../common/classes/content.class";
+import { Base } from "./../../entity/base";
+import { Column, Entity } from "typeorm";
 
 @Entity('setting')
-export class Setting {
-    @PrimaryGeneratedColumn({
-        type: 'bigint',
-        name: 'id'
+export class Setting extends Base {
+
+    @Column('jsonb', {
+        nullable: true,
     })
-    public id: number;
-
-    @ApiProperty()
-    @Column()
-    public name: string;
-
-    @ApiProperty()
-    @Column()
-    public value: number;
-
-    @ApiProperty()
-    @Column()
-    public content: string;
-
-    @ApiProperty()
-    @Column({
-        default: 1
-    }) 
-    public enabled: boolean;
-
-    @CreateDateColumn({
-        default: `now()`,
-        nullable: true
-    })
-    public created: string;
-
-    @Column({
-        nullable: true
-    })
-    public created_by: number;
-
-    @CreateDateColumn({
-        default: `now()`,
-        nullable: true
-    })
-    public modified: string;
-
-    @Column({
-        nullable: true
-    })
-    public modified_by: number;
+    content: Content
 }

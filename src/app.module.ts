@@ -5,8 +5,7 @@ import { DatabaseModule } from './database/database.module';
 import { TodoModule } from './todo/todo.module';
 import { PostModule } from './post/post.module'; 
 import { UsersModule } from './users/users.module';
-import { LoggerMiddleware } from './middleware/logger.middleware';
-import { SettingsModule } from './settings/settings.module';
+import { LoggerMiddleware } from './middleware/logger.middleware'; 
 import { RolesModule } from './roles/roles.module';
 import { PermissionsModule } from './permissions/permissions.module';
 import { Roles, Users, Permissions } from './typeorm';
@@ -21,6 +20,7 @@ import { ArticlesModule } from './articles/articles.module';
 import { ArticleLanguagesModule } from './article-languages/article-languages.module';
 import { ArticleImagesModule } from './article-images/article-images.module'; 
 import { MyFilesModule } from './my-files/my-files.module';
+import { SettingsModule } from './settings/settings.module';
  
 
 @Module({
@@ -82,6 +82,7 @@ import { MyFilesModule } from './my-files/my-files.module';
     ArticleLanguagesModule,
     ArticleImagesModule,
     MyFilesModule,
+    SettingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
