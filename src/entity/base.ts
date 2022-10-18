@@ -8,6 +8,11 @@ export abstract class Base {
   })
   id: number;
 
+  @Column({
+    default: true,
+  })
+  enabled: boolean;
+
   @CreateDateColumn({ 
     default: `now()`,
     nullable: true,

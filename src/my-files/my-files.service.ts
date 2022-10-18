@@ -35,20 +35,18 @@ export class MyFilesService {
     return `This action removes a #${id} myFile`;
   }
 
-
-
-
   async upload(file: any)  {
 
+    console.log(file)
     const myFile = new MyFile();
-    myFile.mimeType =  file.minetype
+    myFile.mimeType =  file.mimetype
     myFile.originalName = file.originalname
     myFile.path = file.path
+    myFile.size = file.size
 
-    const id = await this.myFileRepository.create( myFile );
-    console.log(id)
-    await this.myFileRepository.save(myFile)
+    this.myFileRepository.create( myFile ); 
+    const item = await this.myFileRepository.save(myFile)
 
-    return new ApiSucceedResponse("file is upload succeed!", id);
+    return new ApiSucceedResponse("file is upload succeed!", item);
   }
 }

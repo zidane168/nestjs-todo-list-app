@@ -1,5 +1,7 @@
 import { Request, Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, ParseFilePipeBuilder } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express'; 
+import { MyFile } from 'src/typeorm';
+import { CreateMyFileDto } from './../my-files/dto/create-my-file.dto';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
@@ -33,40 +35,10 @@ export class ArticlesController {
     return await this.articlesService.remove(+id);
   }
 
-
-  @UseInterceptors(
-    FileInterceptor('file', {
-      // storage: diskStorage({
-      //   destination: './uploads',
-      //   filename: (req, file, cb) => {
-      //     const fileNameSplit = file.originalname.split('.');
-      //     const fileExt = fileNameSplit[fileNameSplit.length - 1];
-      //     cb(null, `${Date.now()}.${fileExt}`); 
-      //   },
-      // }),
-    }),
-  )
-  @Post("upload")
-  upload(
-    @UploadedFile(
-      new ParseFilePipeBuilder()
-      .addFileTypeValidator({
-        fileType: 'png',
-      })
-      .build(),
-    ) file: Express.Multer.File,
-    @Body() createArticleDto: CreateArticleDto,
-    @Request() req
- 
+  @Post("assignImage")
+  assignImage( 
+    @Body() createArticleDto: CreateArticleDto,   
   ) { 
-
-    console.log(req.body)
-    return this.articlesService.upload(file, createArticleDto, req);
-    // return {
-    //   originalname: file.originalname,
-    //   fileName: file.fieldname,
-    //   mineType: file.mimetype,
-    //   path: '/uploads/' + file.filename
-    // } 
+    return this.articlesService.assignImage(createArticleDto)
   }
 }

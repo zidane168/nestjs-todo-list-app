@@ -1,27 +1,16 @@
 import { Article } from "./../../articles/entity/article.entity";
-import { Entity, ManyToOne, PrimaryGeneratedColumn, Column } from "typeorm";
-
+import { Entity, ManyToOne, PrimaryGeneratedColumn, Column } from "typeorm"; 
+import { MyFile } from "./../../my-files/entity/my-file.entity";
+import { Base } from './../../entity/base';
 @Entity('articleImage')
-export class ArticleImage {
-
-    @PrimaryGeneratedColumn({
-        type: 'bigint',
-        name: 'id',
-    })
-    id: number; 
+export class ArticleImage extends Base {
 
     @ManyToOne(() => Article, (article) => article.ArticleImages)
     Article: Article
 
-    @Column()
-    path: string 
-
-    @Column()
-    originalName: string
-
     @Column({
-        default: null
+        default: null 
     })
-    mimetype: string;
+    myFileId: Number
 
 }

@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseFilePipeBuilder, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseFilePipeBuilder, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { MyFilesService } from './my-files.service';
 import { CreateMyFileDto } from './dto/create-my-file.dto';
 import { UpdateMyFileDto } from './dto/update-my-file.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('my-files')
 export class MyFilesController {
@@ -32,15 +33,15 @@ export class MyFilesController {
     return this.myFilesService.remove(+id);
   }
 
-
+  @UseInterceptors( FileInterceptor('file') ) // <=>  ['type' => 'file'] // file encrypt
   @Post("upload")
   upload(
     @UploadedFile(
-      // new ParseFilePipeBuilder()
-      // .addFileTypeValidator({
-      //   fileType: 'png',
-      // })
-      // .build(),
+      new ParseFilePipeBuilder()
+      .addFileTypeValidator({
+        fileType: 'png',
+      })
+      .build(),
     ) file: Express.Multer.File,  
   ) { 
  

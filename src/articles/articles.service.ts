@@ -8,8 +8,8 @@ import { Article } from './entity/article.entity';
 import { ArticleLanguage } from './../article-languages/entity/article-language.entity';
 import { ApiSucceedResponse } from 'src/util/api-success-response.util';
 import { ApiErrorResponse } from 'src/util/api-error-response.util';
-import { ArticleImage } from './../article-images/entity/article-image.entity';
-import { CreateArticleLanguageDto } from 'src/article-languages/dto/create-article-language.dto';
+import { ArticleImage } from './../article-images/entity/article-image.entity';  
+import { CreateMyFileDto } from 'src/my-files/dto/create-my-file.dto';
 
 @Injectable()
 export class ArticlesService {
@@ -212,31 +212,19 @@ export class ArticlesService {
     return new ApiSucceedResponse("data is deleted", deleted);
   }
 
-  async upload(file: any, createArticleDto: CreateArticleDto, req: Request) {
+  async assignImage(createArticleDto: CreateArticleDto) {
 
     const queryRunner = dataSource.createQueryRunner()
     await queryRunner.connect()
     await queryRunner.startTransaction()
 
-    try  {
+    try {
+      const article = await this.articleRepository.create( createArticleDto ) 
+      await queryRunner.manager.save(article);   
 
-      const article = await this.articleRepository.create( createArticleDto )
-      await queryRunner.manager.save(article); 
+      // save language
+      for (let i = 0; i < +createArticleDto.articleLanguages.length; i++) {
 
-      // save article image
-      const articleImages = new ArticleImage();
-      articleImages.originalName = file.originalname
-      articleImages.mimetype = file.mimetype
-      articleImages.path = '/uploads/' + file.filename
-      articleImages.Article = article; 
-      
-      await this.articleImageRepository.create(articleImages)
-      
-      await queryRunner.manager.save(articleImages)
-
-      // console.log(req.body);
-
-      for (let i = 0; i < createArticleDto.articleLanguages.length; i++) {
         let alias = createArticleDto.articleLanguages[i].alias
         let name = createArticleDto.articleLanguages[i].name
         let description = createArticleDto.articleLanguages[i].description
@@ -248,19 +236,26 @@ export class ArticlesService {
         articleLanguage.Article = article;
         await queryRunner.manager.save(articleLanguage);
       } 
-  
+ 
+      // save image
+      for (let i = 0; i < createArticleDto.myFileIds.length; i++) {
+        const articleImage = new ArticleImage()
+        articleImage.Article = article
+        articleImage.myFileId = createArticleDto.myFileIds[i]
+        await queryRunner.manager.save(articleImage)
+      }
+ 
       await queryRunner.commitTransaction();
       return new ApiSucceedResponse("data is saved", {});
 
     } catch (err) {
+      
       await queryRunner.rollbackTransaction();
-      return new ApiErrorResponse("data is not saved!!!", err);
+      return new ApiErrorResponse("data is not saved", err);
 
     } finally {
-      queryRunner.release() 
+      await queryRunner.release()
     }
-   
-
-
   }
+
 }

@@ -98,5 +98,12 @@ npm run typeorm migration:run
 
 nest g resource articles
 
- // @Column(jsonb)
-      // update child relationship one many
+// @Column(jsonb)
+// update child relationship one many
+
+
+// ------- nếu loại nào xài dc thì xài loại đó -------
+co hai loai truyen du lieu:
+1. @Request() reg 
+2. @Body() createArticleDTO CreateArticleDTO
+// ------- nếu loại nào xài dc thì xài loại đó -------
