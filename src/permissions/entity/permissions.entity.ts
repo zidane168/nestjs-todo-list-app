@@ -24,7 +24,7 @@ export class Permissions {
 
   @ApiProperty({ example: ' ', description: ' ' })
   @Column()
-  public functionName: string; // getUser / CreateUser
+  public controller: string;  
 
   @CreateDateColumn({
     default: `now()`,

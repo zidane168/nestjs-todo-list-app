@@ -30,25 +30,25 @@ export class AppService {
       slug: 'post-add',
       name: 'post',
       method: 'add',
-      functionName: 'add',
+      controller: 'post',
     });
     const permission2 = await this.permissionsRepository.create({
       slug: 'post-edit',
       name: 'post',
       method: 'edit',
-      functionName: 'edit',
+      controller: 'post',
     });
     const permission3 = await this.permissionsRepository.create({
       slug: 'post-view',
       name: 'post',
       method: 'view',
-      functionName: 'view',
+      controller: 'post',
     });
     const permission4 = await this.permissionsRepository.create({
       slug: 'post-index',
       name: 'post',
       method: 'index',
-      functionName: 'index',
+      controller: 'post',
     });
 
     // remember await, that a key to sync data to DB

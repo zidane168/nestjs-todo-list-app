@@ -69,8 +69,8 @@ export class PermissionsController {
             if (!Common.isExist(dto.method)) {
                 return new ApiErrorResponse('Missing param: method', {});
             }
-            if (!Common.isExist(dto.functionName)) {
-                return new ApiErrorResponse('Missing param: functionName', {});
+            if (!Common.isExist(dto.controller)) {
+                return new ApiErrorResponse('Missing param: controller', {});
             }
 
             this.myLogger.writeRequestLog(req, "POST", "NONE", dto);

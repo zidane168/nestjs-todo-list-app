@@ -7,6 +7,41 @@ import {
     HttpException,
 } from "@nestjs/common";
 
+
+// Users {
+//     id: '1',
+//     username: 'vilh',
+//     password: '$2b$12$gWxjBaBwvYHdZCO.BhyM5eLQg3TsIVKcm/cZ7DunwY87nnogGwB3q',
+//     enabled: true,
+//     created: 2022-10-13T00:41:20.561Z,
+//     created_by: null,
+//     modified: 2022-10-13T00:41:20.561Z,
+//     modified_by: null,
+//     roles: [
+//       Roles {
+//         id: '1',
+//         slug: 'admin',
+//         name: 'admin',
+//         enabled: true,
+//         created: 2022-10-13T00:41:20.561Z,
+//         created_by: null,
+//         modified: 2022-10-13T00:41:20.561Z,
+//         modified_by: null,
+//         permissions: [Array]
+//       },
+//       Roles {
+//         id: '2',
+//         slug: 'company-admin',
+//         name: 'Company Admin',
+//         enabled: true,
+//         created: 2022-10-13T00:41:20.561Z,
+//         created_by: null,
+//         modified: 2022-10-13T00:41:20.561Z,
+//         modified_by: null,
+//         permissions: [Array]
+//       }
+//     ]
+//   }
 @Injectable()
 export class RoleGuard implements CanActivate {
     canActivate(context: ExecutionContext): any {
@@ -15,27 +50,45 @@ export class RoleGuard implements CanActivate {
         const request = context.switchToHttp().getRequest();
         const user = request.user;
         const currentMethod = request.method;
+        const url = request.url; 
+        for (let i = 0; i < user.roles.length; i++) {
+
+            let permissions = user.roles[i].permissions;  
+            for(let j = 0; j < permissions.length; j++) { 
  
-        // users - usersRoles - roles - rolesPermissions - permissions
-        for(let i = 0; i < user.usersRoles.length; i++) {
+                let { method, controller } = permissions[j]; 
 
-            let rolesPermissions = user.usersRoles[i].roles.rolesPermissions;
-            // console.log(rolesPermissions);
-            for(let j = 0; j < rolesPermissions.length ; j++) {
-                // console.log(rolesPermissions[j].permissions);
+                // convert to detail function/method
+                if (url.indexOf(controller) > 0) {      // >0: found; belong to controllers and then check method is allow?
 
-                let { method, functionName } = rolesPermissions[j].permissions;
-
-                if (currentFunctionName === functionName && currentMethod === method) {
-                    return true;
-                }
+                    console.log(permissions[j]);
+                    if (method === 'add') {
+                        if (currentMethod === 'POST') {
+                            return true;
+                        }
+                    }
+    
+                    if (method === 'edit') {
+                        if (currentMethod === 'PATCH' || currentMethod === 'PUT' ) {
+                            return true;
+                        }
+                    }
+    
+                    if (method === 'view') {
+                        if (currentMethod === 'GET' ) { 
+                            return true;
+                        }
+                    }
+    
+                    if (method === 'delete') {
+                        if (currentMethod === 'delete' ) {
+                            return true;
+                        }
+                    } 
+                } 
             }
         }
-
-        // console.log(user.usersRoles[0].usersId);
-        // console.log(user.usersRoles[0].roles);
-        // console.log(user.usersRoles[1].usersId);
-        // console.log(user.usersRoles[1].roles);
+ 
 
         // https://programmer.group/nestjs-learning-tour-routing-guard.html
         // const request = context.switchToHttp().getRequest();

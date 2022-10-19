@@ -61,7 +61,7 @@ export class PermissionsService {
             obj.slug = param.slug;
             obj.name = param.name;
             obj.method = param.method;
-            obj.functionName = param.functionName;
+            obj.controller = param.controller;
             obj.created_by = req.user ? req.user.id : null;
            
             await queryRunner.manager.save(obj);
@@ -107,8 +107,8 @@ export class PermissionsService {
             if (param.method) {
                 obj.method = param.method;
             }
-            if (param.functionName) {
-                obj.functionName = param.functionName;
+            if (param.controller) {
+                obj.controller = param.controller;
             }
 
             obj.modified_by = req.user ? req.user.id : null;

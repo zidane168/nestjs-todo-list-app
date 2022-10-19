@@ -22,11 +22,14 @@ export class UsersService {
       .where('users.username = :username', { username })
       .getOne();
 
+    // const hashedPassword = await bcrypt.hash(password, 12);
+    // console.log(hashedPassword)
+
     let params = {};
     if (!user) {
       return new ApiErrorResponse('Invalid Credentials', params);
     }
-
+ 
     if (!(await bcrypt.compare(password, user.password))) {
       return new ApiErrorResponse('Invalid Credentials', params);
     }
@@ -59,11 +62,9 @@ export class UsersService {
     // users - usersRoles - roles
     // roles - rolesPermissions - permissions
     const user = await this.usersRepository
-      .createQueryBuilder("users") // tra ve user + permission + role
-      .leftJoinAndSelect("users.usersRoles", "usersRoles")
-      .leftJoinAndSelect("usersRoles.roles", "roles")
-      .leftJoinAndSelect("roles.rolesPermissions", "rolesPermissions")
-      .leftJoinAndSelect("rolesPermissions.permissions", "permissions")
+      .createQueryBuilder("users") // tra ve user + permission + role 
+      .leftJoinAndSelect("users.roles", "roles") 
+      .leftJoinAndSelect("roles.permissions", "permissions")
       .where(
         "users.enabled = true and roles.enabled = true and permissions.enabled = true AND users.id = " +
           id
@@ -71,5 +72,5 @@ export class UsersService {
       .getMany();
     return user ? user : null;
   }
-
+  
 }

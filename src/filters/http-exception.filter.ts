@@ -12,9 +12,15 @@ import {
       const response = ctx.getResponse();
       const request = ctx.getRequest();
       const statusCode = exception.getStatus();
+      let message = "";
+
+      if (statusCode === 401) {
+        message = "User Unauthorized!"
+      }
   
       response.status(statusCode).json({
         statusCode,
+        message,
         timestamp: new Date().toISOString(),
         path: request.url,
       });

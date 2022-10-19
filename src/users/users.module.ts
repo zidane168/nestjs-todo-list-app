@@ -15,6 +15,11 @@ import { Users } from './entity/users.entity';
     TypeOrmModule.forFeature([Users]),
     PassportModule,
     MyLoggerModule,
+
+  //   JwtModule.registerAsync({
+  //     useClass: JwtConfig,
+  // }),
+
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: {

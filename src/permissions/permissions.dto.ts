@@ -15,9 +15,7 @@ export class PermissionsDTO {
     readonly method: string;
 
     @IsString()
-    readonly functionName: string;
-
-    // @IsOptional()
-    // roles: RolesDTO;
+    readonly controller: string;
+ 
 
 }
