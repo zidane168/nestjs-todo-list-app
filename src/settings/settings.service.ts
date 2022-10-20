@@ -1,16 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ApiSucceedResponse } from 'src/util/api-success-response.util';
 import { Repository } from 'typeorm';
 import { CreateSettingDto } from './dto/create-setting.dto';
 import { UpdateSettingDto } from './dto/update-setting.dto';
 import { Setting } from './entity/setting.entity';
+import { Cache } from 'cache-manager';
 
 @Injectable()
 export class SettingsService {
 
   constructor(
-    @InjectRepository(Setting) private readonly settingRepository:Repository<Setting>
+    @InjectRepository(Setting) private readonly settingRepository:Repository<Setting>,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,  
+
   ) {}
 
   async create(createSettingDto: CreateSettingDto) {
@@ -34,8 +37,16 @@ export class SettingsService {
   }
 
   async findOne(id: number) {
-    const setting = await this.settingRepository.query(`SELECT content->'name' as name from setting WHERE id=1`)
 
+    const cached = await this.cacheManager.get('setting');
+    if (cached) {
+      return new ApiSucceedResponse('retrieved data successfully', cached)
+    }
+
+    const setting = await this.settingRepository.query(`SELECT content->'name' as name from setting WHERE id=1`)
+    const flag = await this.cacheManager.set('setting', JSON.stringify(setting), { ttl: 0 });
+    console.log(flag)
+    console.log('vao day');
     return new ApiSucceedResponse('retrieved data successfully', setting)
   }
 

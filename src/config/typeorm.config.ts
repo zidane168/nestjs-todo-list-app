@@ -4,10 +4,12 @@ import {
   TypeOrmModuleOptions,
 } from '@nestjs/typeorm';
 import entities from 'src/typeorm';
+import { DataSource } from 'typeorm';
 
 // https://www.youtube.com/watch?v=1-MRmLsUrAo
 
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
+ 
   useFactory: async (): Promise<TypeOrmModuleOptions> => {
     return {
       type: 'postgres',
@@ -23,7 +25,11 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
       synchronize: false,
       logging: true,
     };
-  },
- 
+  }, 
 };
+
+ 
+
+
+
 

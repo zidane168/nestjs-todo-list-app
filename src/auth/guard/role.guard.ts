@@ -60,8 +60,7 @@ export class RoleGuard implements CanActivate {
 
                 // convert to detail function/method
                 if (url.indexOf(controller) > 0) {      // >0: found; belong to controllers and then check method is allow?
-
-                    console.log(permissions[j]);
+ 
                     if (method === 'add') {
                         if (currentMethod === 'POST') {
                             return true;

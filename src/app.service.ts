@@ -2,10 +2,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Users } from './users/entity/users.entity';
-import * as bcrypt from 'bcrypt';
 import { Roles } from './roles/entity/roles.entity';
 import { Permissions } from './permissions/entity/permissions.entity'; 
-import { jwtConstants } from './auth/constants';
 import { dataSource } from './config/datasource.config';
 
 @Injectable()

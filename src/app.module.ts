@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { DatabaseModule } from './database/database.module';
+// import { DatabaseModule } from './database/database.module';
 import { TodoModule } from './todo/todo.module';
 import { PostModule } from './post/post.module'; 
 import { UsersModule } from './users/users.module';
@@ -21,41 +21,23 @@ import { ArticleLanguagesModule } from './article-languages/article-languages.mo
 import { ArticleImagesModule } from './article-images/article-images.module'; 
 import { MyFilesModule } from './my-files/my-files.module';
 import { SettingsModule } from './settings/settings.module';
- 
+import * as redisStore from 'cache-manager-redis-store'
 
 @Module({
   imports: [
+    CacheModule.register({
+      isGlobal: true,
+      store: redisStore,
+      host: 'localhost',
+      port: 6379,
+    }),
+    
     ConfigModule.forRoot({
       isGlobal: true, 
     }),
 
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
-
-    //TypeOrmModule.forRootAsync({
-      // imports: [ConfigModule],
-      // inject: [ConfigService],
-      // useFactory: (configService: ConfigService) => {
-      //   const typeormConfig = configService.get('database');
-      //   if (process.env.POSTGRESQL_HOST) {
-      //     typeormConfig.host = process.env.POSTGRESQL_HOST;
-      //   }
-      //   if (process.env.POSTGRESQL_PORT) {
-      //     typeormConfig.port = process.env.POSTGRESQL_PORT;
-      //   }
-      //   if (process.env.POSTGRESQL_USER) {
-      //     typeormConfig.username = process.env.POSTGRESQL_USER;
-      //   }
-      //   if (process.env.POSTGRESQL_PASSWORD) {
-      //     typeormConfig.password = process.env.POSTGRESQL_PASSWORD;
-      //   }
-      //   if (process.env.POSTGRESQL_DATABASE) {
-      //     typeormConfig.database = process.env.POSTGRESQL_DATABASE;
-      //   }
-
-      //   console.log(typeormConfig);
-      //   return typeormConfig;
-      // },
-    // }),
+ 
 
     // ConfigModule.forRoot({
     //   envFilePath: '.env',
@@ -67,8 +49,7 @@ import { SettingsModule } from './settings/settings.module';
     //     POSTGRES_DB: Joi.string().required(),
     //     PORT: Joi.number(), 
     //   })
-    // }),
-    DatabaseModule,
+    // }), 
     TodoModule,
     PostModule,  
     UsersModule,

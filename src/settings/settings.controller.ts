@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, CACHE_MANAGER, Inject } from '@nestjs/common';
 import { SettingsService } from './settings.service';
 import { CreateSettingDto } from './dto/create-setting.dto';
 import { UpdateSettingDto } from './dto/update-setting.dto';
@@ -7,7 +7,9 @@ import { RoleGuard } from 'src/auth/guard/role.guard';
 
 @Controller('settings')
 export class SettingsController {
-  constructor(private readonly settingsService: SettingsService) {}
+  constructor(
+    private readonly settingsService: SettingsService, 
+  ) {}
 
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Post()   // create
@@ -24,6 +26,7 @@ export class SettingsController {
   @Get(':id') // view
   @UseGuards(JwtAuthGuard, RoleGuard)
   findOne(@Param('id') id: string) {
+
     return this.settingsService.findOne(+id);
   }
 
