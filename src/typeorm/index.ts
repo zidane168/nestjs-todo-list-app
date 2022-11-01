@@ -8,10 +8,12 @@ import { Roles } from 'src/roles/entity/roles.entity';
 import { Setting } from 'src/settings/entity/setting.entity';
  
 import { Users } from 'src/users/entity/users.entity';
+import { Github } from 'src/githubs/entity/github.entity';
+import { GithubImage } from 'src/github-images/entity/github-image.entity';
 import { Todo } from '../todo/entity/todo.entity'
 
-const entities = [ Todo, Post, Users, Roles, Permissions, Article, ArticleLanguage, ArticleImage, MyFile, Setting  ];
+const entities = [ Todo, Post, Users, Roles, Permissions, Article, ArticleLanguage, ArticleImage, MyFile, Setting, Github, GithubImage  ];
 
-export { Todo, Post, Users,  Roles, Permissions, Article, ArticleLanguage, ArticleImage, MyFile,Setting  };
+export { Todo, Post, Users,  Roles, Permissions, Article, ArticleLanguage, ArticleImage, MyFile, Setting, Github, GithubImage   };
 
 export default entities;

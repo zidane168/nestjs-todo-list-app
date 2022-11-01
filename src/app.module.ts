@@ -21,6 +21,8 @@ import { ArticleLanguagesModule } from './article-languages/article-languages.mo
 import { ArticleImagesModule } from './article-images/article-images.module'; 
 import { MyFilesModule } from './my-files/my-files.module';
 import { SettingsModule } from './settings/settings.module';
+import { GithubsModule } from './githubs/githubs.module';
+import { GithubImagesModule } from './github-images/github-images.module';
 import * as redisStore from 'cache-manager-redis-store'
 
 @Module({
@@ -63,6 +65,8 @@ import * as redisStore from 'cache-manager-redis-store'
     ArticleImagesModule,
     MyFilesModule,
     SettingsModule,
+    GithubsModule,
+    GithubImagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

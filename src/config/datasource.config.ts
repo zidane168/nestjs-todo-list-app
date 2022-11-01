@@ -25,5 +25,4 @@ dataSource.initialize()
       console.log(' --------------------------------------------- ')
   })
   .catch((error) => console.log(error))
-
-  console.log('-- second --')
+ 
