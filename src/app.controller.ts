@@ -40,11 +40,6 @@ export class AppController {
     return { message: 'Hello world!' };
   }
 
-  
-  @Get('cms/index2') 
-  index2() {
-    return Render('cms/index')
-  }
 
   @Get('auth/login')
   @Render('auth/login')
