@@ -8,12 +8,13 @@ import { nestEdge } from 'nest-edge';
 
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 
-async function bootstrap() {
-  // const app = await NestFactory.create(AppModule);
-
+async function bootstrap() { 
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-
+ 
+  app.useStaticAssets(join(__dirname, '..', 'uploads'));
+   
   app.useStaticAssets(join(__dirname, '..', 'public'));
+  app.useStaticAssets(join(__dirname, '..', 'uploads'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
 
   const engine = nestEdge({
@@ -45,3 +46,5 @@ async function bootstrap() {
   await app.listen(3333);
 }
 bootstrap();
+
+ 

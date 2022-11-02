@@ -50,6 +50,5 @@ export class AppController {
   @Render('auth/login')
   product() {
     return { message: 'This is Login page' };
-  }
-  
+  } 
 }

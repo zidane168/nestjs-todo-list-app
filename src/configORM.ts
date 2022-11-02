@@ -1,5 +1,6 @@
 import { ConfigModule } from "@nestjs/config";
 import { DataSource } from "typeorm";
+import entities from "./typeorm";
 
 // https://stackoverflow.com/questions/63285055/nestjs-how-to-use-env-variables-in-main-app-module-file-for-database-connecti
 ConfigModule.forRoot()  // automatically load content of .env file
@@ -12,7 +13,8 @@ export const connectionSource = new DataSource({
     username: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
     database: process.env.POSTGRES_DB,
-    entities: ['src/**/entity/*.entity.ts'],     
+    // entities: ['**/entity/*.entity.ts'],      
+    entities,
     extra: {
         charset: 'utf8mb4_unicode_ci',
     },

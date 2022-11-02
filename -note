@@ -105,7 +105,7 @@ nest g resource articles
 npm i cache-manager-redis-store
 npm u cache-manager
 
-
+Nest new abc
 
 
 
@@ -117,9 +117,14 @@ npm u cache-manager
 
 
 // ------- nếu loại nào xài dc thì xài loại đó -------
-co hai loai truyen du lieu:
-1. @Request() reg 
-2. @Body() createArticleDTO CreateArticleDTO
+co các loai truyen du lieu sau:
+1. @Request() request
+2. @Body() createArticleDTO CreateArticleDTO <-- POST truyền vào body / raw của POST method
+3. @Query('limit') limit: number    <--- GET truyền theo {{host}}/githubs?limit=15&page=7
+4. @Param("id") => GET với tham số  <--- GET tham số {{host}}/githubs/:id
 // ------- nếu loại nào xài dc thì xài loại đó -------
 
 
+
+
+/// -----note plai remove dist, notdemodule when rebuild / start

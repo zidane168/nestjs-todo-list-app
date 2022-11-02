@@ -34,30 +34,17 @@ import * as redisStore from 'cache-manager-redis-store'
       port: 6379,
     }),
     
-    ConfigModule.forRoot({
-      isGlobal: true, 
-    }),
-
-    TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
- 
-
     // ConfigModule.forRoot({
-    //   envFilePath: '.env',
-    //   validationSchema: Joi.object({
-    //     POSTGRES_HOST: Joi.string().required(),
-    //     POSTGRES_PORT: Joi.number().required(),
-    //     POSTGRES_USER: Joi.string().required(),
-    //     POSTGRES_PASSWORD: Joi.string().required(),
-    //     POSTGRES_DB: Joi.string().required(),
-    //     PORT: Joi.number(), 
-    //   })
-    // }), 
+    //   isGlobal: true, 
+    // }),
+
+    TypeOrmModule.forRootAsync(typeOrmAsyncConfig), 
     TodoModule,
     PostModule,  
     UsersModule,
     RolesModule, 
     PermissionsModule, 
-    TypeOrmModule.forFeature([Users, Roles, Permissions ]),
+    TypeOrmModule.forFeature([ Users, Roles, Permissions ]),
     CompaniesModule,
     CompanyLanguagesModule,
     ArticlesModule,
@@ -71,7 +58,6 @@ import * as redisStore from 'cache-manager-redis-store'
   controllers: [AppController],
   providers: [AppService],
 })
-
 
 export class AppModule {}
 
