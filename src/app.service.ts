@@ -18,7 +18,7 @@ export class AppService {
   ) {}
 
   welcome(){
-    return "welcome to todolis ZIDANE"
+    return "welcome to SERVER TODOLIST BY ZIDANE - Learn Tech Tips"
   }
 
   async assignRoleWithPermission() {
